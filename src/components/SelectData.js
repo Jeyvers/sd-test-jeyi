@@ -4,7 +4,6 @@ import Button from '../components/styled/Button';
 import { IconWrapper, Main } from '../layouts/utils';
 import { primaryColor } from '../config';
 import { FaTimes } from 'react-icons/fa';
-import styled from 'styled-components';
 
 const SelectData = () => {
   const [data, setData] = useState([]);

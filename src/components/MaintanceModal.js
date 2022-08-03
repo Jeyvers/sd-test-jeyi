@@ -11,8 +11,6 @@ import {
   statuses,
   systemTypes,
 } from '../data';
-import Input from './styled/Input';
-import { Fragment } from 'react';
 import { useState } from 'react';
 import VariantButton from './styled/VariantButton';
 import { useRef } from 'react';

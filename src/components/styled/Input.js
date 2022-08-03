@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { primaryColor } from '../../config';
 
 const Input = styled.input.attrs((props) => ({
   type: props.type || 'text',
