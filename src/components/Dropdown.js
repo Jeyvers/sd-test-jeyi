@@ -8,23 +8,22 @@ const DropDownContainer = styled('div')`
   max-height: 600px;
 `;
 
-const DropDownHeader = styled('div')`
+const DropDownHeader = styled('select')`
   display: flex;
   justify-content: space-between;
   width: 350px;
   margin: 0.6em;
   padding: 0.8em;
   //   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.3);
   color: #222;
   border-radius: 10px;
   font-weight: 500;
   font-size: 1.1rem;
   background: #ffffff;
   cursor: pointer;
+  text-transform: capitalize;
 `;
-
-const DropDownListContainer = styled('div')``;
 
 const DropDownList = styled('ul')`
   padding: 0;
@@ -38,21 +37,25 @@ const DropDownList = styled('ul')`
   font-weight: 500;
   width: 380px;
   border-radius: 10px;
+  position: absolute;
 
   &:first-child {
     padding-top: 0.8em;
   }
 `;
 
-const ListItem = styled('li')`
-  list-style: none;
-  margin-bottom: 0.8em;
-  cursor: pointer;
-
-  &:hover {
-    color: #ccc;
-  }
+const ListItem = styled('option')`
+  text-transform: capitalize;
 `;
+// const ListItem = styled('li')`
+//   list-style: none;
+//   margin-bottom: 0.8em;
+//   cursor: pointer;
+
+//   &:hover {
+//     color: #ccc;
+//   }
+// `;
 
 const Dropdown = ({
   id,
@@ -61,36 +64,30 @@ const Dropdown = ({
   title,
   handleChange,
   selectedValue,
+  key,
+  value = 'id',
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
-
-  const toggling = () => setIsOpen(!isOpen);
-
-  const onOptionClicked = (value) => () => {
-    setSelectedOption(value);
-    setIsOpen(false);
-  };
-
   return (
     <DropDownContainer>
-      <DropDownHeader onClick={toggling}>
-        {selectedOption || selectedValue}
-        <IconWrapper>
-          <FaAngleDown />
-        </IconWrapper>
-      </DropDownHeader>
-      {isOpen && (
-        <DropDownListContainer>
-          <DropDownList>
-            {options.map((option) => (
-              <ListItem onClick={onOptionClicked(option)} key={option.value}>
-                {option}
+      <DropDownHeader
+        defaultValue={selectedValue}
+        onChange={(e) => {
+          handleChange(e);
+        }}
+        name={selectedValue}
+      >
+        (
+        <>
+          {options.map((option, index) => {
+            return (
+              <ListItem key={option[value] || index}>
+                {name ? option[name] : option}
               </ListItem>
-            ))}
-          </DropDownList>
-        </DropDownListContainer>
-      )}
+            );
+          })}
+        </>
+        )
+      </DropDownHeader>
     </DropDownContainer>
   );
 };

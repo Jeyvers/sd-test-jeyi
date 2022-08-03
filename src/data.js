@@ -1,4 +1,4 @@
-systemTypes: [
+export const systemTypes = [
   {
     id: '437dbe3e-eec5-40bb-a209-c0f895d4e28a',
     userId: 'ffe25dbe-29ea-4759-8461-ed116f6739dd',
@@ -56,7 +56,7 @@ systemTypes: [
   },
 ];
 
-Equipment: [
+export const Equipment = [
   {
     id: '82bbb4d9-7255-4f66-8945-ccaa5cfaf4e3',
     userId: 'ffe25dbe-29ea-4759-8461-ed116f6739dd',
@@ -189,7 +189,7 @@ Equipment: [
   },
 ];
 
-equipmentType: [
+export const equipmentType = [
   {
     id: '773dcd3e-d797-4bf3-8759-5dd6d59ac258',
     systemTypeId: '6b5e8f93-0644-4860-bb87-0c1579f5b06b',
@@ -264,7 +264,7 @@ equipmentType: [
   },
 ];
 
-Location: [
+export const Location = [
   {
     id: '2a26c475-7cdf-43a3-b500-1b0c0e35235f',
     userId: 'ffe25dbe-29ea-4759-8461-ed116f6739dd',
@@ -311,3 +311,25 @@ Location: [
     updatedAt: '2022-06-21T08:35:47.691Z',
   },
 ];
+
+export const statuses = ['maintenance', 'available', 'breakdown'];
+
+export const newDataList = Equipment.map((equipment) => {
+  const newLocation = Location.find(
+    (location) => location.transactionId === equipment.transactionId
+  );
+
+  const newEquipmentType = equipmentType.find(
+    (equiType) => equiType.transactionId === equipment.transactionId
+  );
+
+  return {
+    date: equipment.createdAt,
+    id: equipment.id,
+    location: newLocation,
+    sbu: equipment.sbuId,
+    equipment: equipment.equipment,
+    equipmentType: newEquipmentType,
+    status: statuses[Math.floor(Math.random() * 3)],
+  };
+});

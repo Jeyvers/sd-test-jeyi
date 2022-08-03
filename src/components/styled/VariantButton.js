@@ -1,5 +1,5 @@
 import { ImSpinner9 } from 'react-icons/im';
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { primaryColor } from '../../config';
 
 // Rotation animation for loaders
@@ -48,8 +48,18 @@ const VariantButton = styled(Button)`
   border-radius: ${(props) => (props.pill ? '16px' : '3px')};
   border: 2px solid ${primaryColor};
   color: ${(props) => (props.solid ? 'white' : primaryColor)};
-  margin: 0.5em 1em;
+  margin: 0.5em;
   padding: 0.5em 1em;
+  width: ${(props) => (props.width ? props.width : 'auto')};
+  cursor: pointer;
+
+  ${(props) =>
+    props.disabled &&
+    css`
+      background: rgb(181, 181, 181);
+      color: white;
+      border: 2px solid rgb(181, 181, 181);
+    `}
 `;
 
 export default VariantButton;
